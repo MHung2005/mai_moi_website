@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FaceFit - Hành Trình Kết Nối</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f9fafc;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    /* Header và Navigation */
+    header {
+      background-color: 		#708090;
+      color: white;
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .nav-brand {
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-menu li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-menu li a:hover {
+      color: #ffcc00;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: 80px auto 40px;
+      padding: 0 20px;
+    }
+  .banner {
+    background-image: url('anhcuoi.jpg'); /* Đường dẫn ảnh nền */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    color: white;
+    text-align: center; /* Căn giữa nội dung theo chiều ngang */
+    min-height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
+    width: 100%;
+    display: flex; /* Sử dụng flexbox để căn giữa cả chiều dọc */
+    flex-direction: column; /* Xếp các phần tử con theo cột */
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang (tùy chọn bổ sung) */
+}
+
+    /* .banner {
+      background-color: #e2e8f0;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      text-align: center;
+    } */
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background-color: #edf2f7;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background-color: #003087;
+      width: 0;
+      transition: width 0.6s ease-in-out;
+      border-radius: 5px;
+    }
+
+    .step {
+      display: none;
+      background-color: white;
+      padding: 0px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+
+    .step.active {
+      display: block;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      font-size: 1.8em;
+      color: #003087;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #003087;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 48, 135, 0.2);
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 25px;
+      background-color: #003087;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #00246f;
+    }
+
+    .chatbox {
+      height: 200px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      padding: 15px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .bot {
+      font-weight: bold;
+      color: #003087;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+        display: none;
+      }
+      .nav-menu.active {
+        display: flex;
+      }
+      nav {
+        flex-direction: column;
+        padding: 10px;
+      }
+      main {
+        margin-top: 100px;
+        padding: 0 10px;
+      }
+      .step {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="nav-brand">FaceFit</div>
+      <ul class="nav-menu">
+        <li><a href="#step0">Trang chủ</a></li>
+        <li><a href="#news">Tin tức</a></li>
+        <li><a href="#events">Sự kiện</a></li>
+        <li><a href="#about">Giới thiệu</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+   <!-- Trang chủ -->
+    <div class="step active" id="step0">
+      <div class="banner">
+        <h1>FaceFit - Kết nối tình yêu!</h1>
+        <p>Bắt đầu hành trình tìm kiếm người đồng điệu ngay hôm nay với đội ngũ chuyên nghiệp của chúng tôi.</p>
+        <button onclick="nextStep(1)" class="w-full bg-pink-500 hover:bg-pink-600 text-white p-3 rounded-lg font-semibold">Bắt đầu ngay</button>
+      </div>
+
+      <div class="services">
+        <h2><i class="fas fa-heart"></i> Dịch vụ của chúng tôi</h2>
+        <div class="service-item">
+          <h3>Tư vấn mai mối cá nhân hóa</h3>
+          <p>Phân tích tính cách và sở thích để tìm người phù hợp nhất cho bạn.</p>
+        </div>
+        <div class="service-item">
+          <h3>Hỗ trợ hẹn hò chuyên nghiệp</h3>
+          <p>Hỗ trợ tổ chức buổi gặp mặt và gợi ý trò chuyện hiệu quả.</p>
+        </div>
+        <div class="service-item">
+          <h3>Đánh giá mối quan hệ</h3>
+          <p>Nhận tư vấn từ chuyên gia để xây dựng mối quan hệ bền vững.</p>
+        </div>
+      </div>
+
+      <div class="team">
+        <h2><i class="fas fa-users"></i> Đội ngũ của chúng tôi</h2>
+        <div class="team-member">
+          <h3>Nguyễn Văn A - Chuyên gia tư vấn</h3>
+          <p>10 năm kinh nghiệm trong lĩnh vực mai mối và tâm lý học.</p>
+        </div>
+        <div class="team-member">
+          <h3>Trần Thị B - Nhà tâm lý học</h3>
+          <p>Chuyên gia phân tích hành vi và hỗ trợ xây dựng mối quan hệ.</p>
+        </div>
+      </div>
+    </div>
+
+  <main>
+    <!-- Giai đoạn 1 -->
+    <section class="step" id="step1">
+      <h2><i class="fas fa-user"></i> Bước 1. Thông tin cá nhân</h2>
+      <label>Họ và tên:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Ngày sinh:</label>
+      <input type="date" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Giới tính:</label>
+      <select class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+        <option>Nam</option>
+        <option>Nữ</option>
+        <option>Khác</option>
+      </select>
+
+      <label>Nơi ở:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300"> <!-- Sửa từ type="date" thành type="text" -->
+
+      <label>Quê quán:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300"> <!-- Sửa từ type="date" thành type="text" -->
+
+      <label>Nghề nghiệp:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Ảnh:</label>
+      <input type="file" accept="image/*" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Giới thiệu bản thân:</label>
+      <textarea class="w-full p-3 mb-4 rounded-lg border border-gray-300" rows="4"></textarea>
+
+      <label>Thu nhập hàng tháng:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300" placeholder="VD: 10-15 triệu">
+
+      <label>Số CCCD:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300" placeholder="VD: 123456789">
+
+      <label>Trình độ học vấn:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300" placeholder="VD: Đại học">
+
+      <label>Tình trạng hôn nhân:</label>
+      <select class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+        <option>Độc thân</option>
+        <option>Đã từng kết hôn</option>
+        <option>Khác</option>
+      </select>
+
+      <label>Số mối tình đã có:</label>
+      <textarea class="w-full p-3 mb-4 rounded-lg border border-gray-300" rows="3"></textarea>
+
+      <label>Có bệnh mãn tính hay dị tật bẩm sinh không?</label>
+      <textarea class="w-full p-3 mb-4 rounded-lg border border-gray-300" rows="3"></textarea>
+
+      <label>Tôn giáo:</label>
+      <textarea class="w-full p-3 mb-4 rounded-lg border border-gray-300" rows="3"></textarea>
+
+      <label>Dân tộc:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Chiều cao, cân nặng:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Điểm mạnh của bạn:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Điểm yếu của bạn:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Sở thích, thú vui:</label>
+      <textarea class="w-full p-3 mb-4 rounded-lg border border-gray-300" rows="3"></textarea>
+
+      <label>Mong muốn về nửa kia:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300" placeholder="VD: 1 năm, 2 năm, chưa rõ">
+
+      <label>Quan điểm về tình yêu, hôn nhân và gia đình:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Thói quen đặc biệt (VD: hút thuốc, ăn chay):</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Mối quan hệ nghiêm túc trước đây? Lý do đổ vỡ (nếu có):</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <label>Bạn sẵn sàng cho hôn nhân?</label>
+      <select class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+        <option>Hoàn toàn chưa sẵn sàng</option>
+        <option>Ít sẵn sàng</option>
+        <option>Đang cân nhắc</option>
+        <option>Gần như sẵn sàng</option>
+        <option>Hoàn toàn sẵn sàng</option>
+      </select>
+
+      <label>Mô tả nửa kia trong mơ:</label>
+      <input type="text" class="w-full p-3 mb-4 rounded-lg border border-gray-300">
+
+      <button onclick="nextStep(2)" class="w-full bg-pink-500 hover:bg-pink-600 text-white p-3 rounded-lg font-semibold">Tiếp tục</button>
+    </section>
+
+    <!-- Giai đoạn 2 -->
+    <section class="step" id="step2">
+      <h2><i class="fas fa-calendar"></i>Bước 2. Đặt lịch phỏng vấn</h2>
+      <label>Chọn ngày:</label>
+      <input type="date" id="interviewDate">
+
+      <label>Chọn giờ:</label>
+      <input type="time" id="interviewTime">
+
+      <label>Hình thức:</label>
+      <select id="interviewMethod">
+        <option>Trực tuyến (Video Call)</option>
+        <option>Gặp trực tiếp tại văn phòng</option>
+      </select>
+
+      <button onclick="nextStep(3)">Tiếp tục</button>
+    </section>
+
+    <!-- Giai đoạn 3 -->
+    <section class="step" id="step3">
+      <h2><i class="fas fa-heart"></i>Bước 3.1. Hồ sơ người ghép đôi & Đặt lịch hẹn đầu tiên</h2>
+      <p><strong>Đối tượng phù hợp:</strong> Nguyễn Văn A, 25 tuổi, thích đọc sách, đi du lịch, sống tại Hà Nội.</p>
+
+      <label>Chọn ngày gặp mặt:</label>
+      <input type="date" id="firstDate">
+
+      <label>Địa điểm mong muốn:</label>
+      <input type="text" id="meetingLocation" placeholder="Cà phê, công viên, nhà hàng...">
+
+      <button onclick="nextStep(4)">Tiếp tục</button>
+    </section>
+
+    <!-- Giai đoạn 4 -->
+    <section class="step" id="step4">
+      <h2><i class="fas fa-comments"></i> Bước 3.2. Gợi ý trò chuyện từ Chatbot</h2>
+      <div class="chatbox" id="chatbox">
+        <div class="message bot">🤖 Xin chào! Hãy bắt đầu bằng câu hỏi nhẹ nhàng như: "Cuối tuần của bạn thường như thế nào?"</div>
+      </div>
+
+      <label>Nhập tin nhắn:</label>
+      <input type="text" id="userInput">
+      <button onclick="sendMessage()">Gửi</button>
+    </section>
+  </main>
+
+  <script>
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+      document.getElementById('step' + stepNumber).classList.add('active');
+    }
+
+    function nextToPart2() {
+      document.getElementById('personal-info-part1').classList.add('hidden');
+      document.getElementById('personal-info-part2').classList.remove('hidden');
+      document.querySelector('.progress-bar-fill').style.width = '33.33%';
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput').value;
+      if (!input.trim()) return;
+
+      const box = document.getElementById('chatbox');
+      const userMsg = document.createElement('div');
+      userMsg.classList.add('message');
+      userMsg.textContent = 'Bạn: ' + input;
+      box.appendChild(userMsg);
+
+      const botReply = document.createElement('div');
+      botReply.classList.add('message', 'bot');
+      botReply.textContent = '🤖 Gợi ý: ' + suggestReply(input);
+      box.appendChild(botReply);
+
+      document.getElementById('userInput').value = '';
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function suggestReply(input) {
+      input = input.toLowerCase();
+      if (
+        input.includes('chủ đề')
+      ) {
+        return 'Bạn nên chọn các chủ đề về sách và du lịch';
+      }
+
+      if (
+        input.includes('sở thích') ||
+        input.includes('thích gì') ||
+        input.includes('giải trí') ||
+        input.includes('rảnh rỗi')
+      ) {
+        return 'Bạn có thể hỏi: "Bạn thích làm gì vào thời gian rảnh?" hoặc "Bạn có sở thích nào mà bạn đặc biệt yêu thích không?"';
+      }
+
+      if (
+        input.includes('công việc') ||
+        input.includes('nghề nghiệp') ||
+        input.includes('làm gì')
+      ) {
+        return 'Bạn có thể hỏi: "Bạn đang làm trong lĩnh vực gì?" hoặc "Điều gì khiến bạn yêu thích công việc hiện tại?"';
+      }
+
+      if (
+        input.includes('gia đình') ||
+        input.includes('bố mẹ') ||
+        input.includes('anh chị')
+      ) {
+        return 'Hỏi nhẹ nhàng: "Bạn thường làm gì cùng gia đình vào cuối tuần?"';
+      }
+
+      if (
+        input.includes('tương lai') ||
+        input.includes('dự định') ||
+        input.includes('kế hoạch')
+      ) {
+        return 'Bạn có thể hỏi: "Bạn có dự định gì đặc biệt trong vài năm tới không?"';
+      }
+
+      if (
+        input.includes('cảm xúc') ||
+        input.includes('cảm nhận') ||
+        input.includes('buổi hẹn') ||
+        input.includes('gặp mặt')
+      ) {
+        return 'Hãy quan tâm: "Bạn cảm thấy như thế nào về buổi gặp hôm nay?"';
+      }
+
+      if (
+        input.includes('du lịch') ||
+        input.includes('đi chơi') ||
+        input.includes('địa điểm yêu thích')
+      ) {
+        return 'Bạn có thể hỏi: "Bạn thích đi du lịch ở đâu nhất?" hoặc "Bạn có kỷ niệm đáng nhớ nào trong một chuyến đi không?"';
+      }
+
+      return 'Bạn có thể hỏi điều gì đó nhẹ nhàng như: "Bạn cảm thấy như thế nào về buổi gặp hôm nay?" hoặc "Bạn thấy thoải mái khi nói chuyện chứ?"';
+    }
+  </script>
+</body>
+</html>
